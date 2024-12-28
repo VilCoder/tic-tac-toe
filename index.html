@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
     <link rel="stylesheet" href="./assets/css/styles.css">
 
     <script src="./assets/js/main.js" defer></script>
-    
+
     <title>Tic Tac Toe</title>
 </head>
+
 <body>
-    
+    <div class="container">
+        <div class="score">
+            <span id="score-player-1"></span>
+            <span id="score-player-2"></span>
+        </div>
+        <h1 class="turn"></h1>
+        <div class="board"></div>
+        <div class="buttons">
+            <button type="button" class="btns start-game">Set Player Names</button>
+            <button type="button" class="btns reset-board">Reset Board</button>
+            <button type="button" class="btns reset-game">Reset Game</button>
+        </div>
+    </div>
+    <dialog class="dialog">
+        <form action="" class="dialog__form" method="dialog">
+            <p>
+                <label for="player-1" class="form__label">Player name 1:</label>
+                <input type="text" id="player-1" class="form__input" maxlength="100" value="Player 1">
+            </p>
+            <p>
+                <label for="player-2" class="form__label">Player name 2:</label>
+                <input type="text" id="player-2" class="form__input" maxlength="100" value="Player 2">
+            </p>
+            <button type="submit" class="form__button btns">Save and Close</button>
+        </form>
+    </dialog>
+
+    <p class="winner"><b></b></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 </body>
+
 </html>
