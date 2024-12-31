@@ -89,11 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    function GameController(nameFirstPlayer = 'Player 1', nameSecondPlayer = 'Player 2') {
+    function GameController(firstPlayer = 'Player 1', secondPlayer = 'Player 2') {
         const board = GameBoard();
+        let gameOver = true;
 
-        const player1 = Player(nameFirstPlayer, 'O');
-        const player2 = Player(nameSecondPlayer, 'X');
+        const setGameOver = (status) => {
+            gameOver = status;
+        };
+
+        const player1 = Player(firstPlayer, 'O');
+        const player2 = Player(secondPlayer, 'X');
 
         const players = [
             {
@@ -115,18 +120,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const getActivePLayer = () => activePlayer;
 
         const playRound = (cell) => {
+            if (gameOver) return;
+
             board.placeMarker(cell, getActivePLayer().marker);
 
             const winner = board.checkWinner();
             const tie = board.isFull();
 
             if (winner || tie) return;
-
+    
             switchPlayerTurn();
         };
 
         return {
             players,
+            setGameOver,
             getActivePLayer,
             playRound,
             getBoard: board.getBoard,
@@ -145,8 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dialog = document.querySelector('dialog');
         const form = document.querySelector('form');
         const formInputs = document.querySelectorAll('.form__input');
-        const showPlayer1Score = document.querySelector('#score-player-1');
-        const showPlayer2Score = document.querySelector('#score-player-2');
+        const showPlayerScore = document.querySelectorAll('.score__player');
         const showWinnerdiv = document.querySelector('.winner');
         const showWinnerText = document.querySelector('.winner b');
         const player1Score = ScoreController();
@@ -156,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updateBoard = () => {
             containerBoard.textContent = '';
-            showPlayer1Score.textContent = `Score ${game.players[0].name}: ${player1Score.getScore()}`;
-            showPlayer2Score.textContent = `Score ${game.players[1].name}: ${player2Score.getScore()}`;
+            showPlayerScore[0].textContent = `${game.players[0].name}: ${player1Score.getScore()}`;
+            showPlayerScore[1].textContent = `${game.players[1].name}: ${player2Score.getScore()}`;
 
             const board = game.getBoard();
             const activePlayer = game.getActivePLayer();
@@ -236,6 +243,9 @@ document.addEventListener('DOMContentLoaded', () => {
             game = GameController();
             player1Score.resetScore();
             player2Score.resetScore();
+            
+            showPlayerScore.forEach((playerScore) => playerScore.classList.remove('score__visible'));
+
             updateBoard();
         };
 
@@ -264,8 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 formInputs[0].focus();
             }, 10);
         };
-
+        
         const closeDialog = () => {
+            game.setGameOver(false);
             dialog.classList.remove('dialog__opening');
             setTimeout(() => {
                 dialog.close();
@@ -275,14 +286,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         startGameButton.addEventListener('click', openDialog);
 
+        dialog.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
+        });
+
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            const nameFirstPlayer = document.querySelector('#player-1').value;
-            const nameSecondPlayer = document.querySelector('#player-2').value;
+            const firstPlayer = document.querySelector('#player-1').value;
+            const secondPlayer = document.querySelector('#player-2').value;
 
-            if (nameFirstPlayer || nameSecondPlayer) {
-                game = GameController(nameFirstPlayer, nameSecondPlayer);
+            if (firstPlayer || secondPlayer) {
+                game = GameController(firstPlayer, secondPlayer);
             } else {
                 game = GameController();
             }
@@ -290,6 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
             form.reset();
 
             closeDialog();
+
+            showPlayerScore.forEach((playerScore) => playerScore.classList.add('score__visible'));
+
             updateBoard();
         });
     }

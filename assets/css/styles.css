@@ -79,7 +79,6 @@ body {
     gap: 1rem;
     max-width: 95%;
     width: 100rem;
-    padding: 2rem 6rem;
 
 }
 
@@ -88,9 +87,25 @@ body {
     justify-content: space-between;
 }
 
-.score > * {
+.score>* {
+    width: fit-content;
     font-size: 1.5rem;
-    color: var(--secondary-color);
+    font-weight: bold;
+    padding: 1rem;
+    color: var(--text-color);
+    display: none;
+}
+
+.score__visible {
+    display: block;
+}
+
+.score__player:first-of-type {
+    background-color: lightblue;
+}
+
+.score__player:last-of-type {
+    background-color: lightcoral;
 }
 
 .turn {
@@ -110,12 +125,14 @@ body {
 
 .buttons {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    gap: 1rem;
     padding: 1rem;
 }
 
 .cell {
-    font-size: 5rem;
+    font-size: 7rem;
+    font-weight: bold;
     background-color: var(--secondary-color);
     border: 1px solid var(--input-color);
     cursor: pointer;
@@ -238,6 +255,16 @@ body {
 
 /* ================================ RESPONSIVE ================================*/
 @media (min-width: 768px) {
+    /* ================================ CONTAINER MAIN ================================*/
+    .container {
+        padding: 2rem 6rem;
+    }
+
+    .buttons {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
     .board {
         height: 50rem;
     }

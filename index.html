@@ -19,13 +19,13 @@
 <body>
     <div class="container">
         <div class="score">
-            <span id="score-player-1"></span>
-            <span id="score-player-2"></span>
+            <span class="score__player"></span>
+            <span class="score__player"></span>
         </div>
         <h1 class="turn"></h1>
         <div class="board"></div>
         <div class="buttons">
-            <button type="button" class="btns start-game">Set Player Names</button>
+            <button type="button" class="btns start-game">Start Game</button>
             <button type="button" class="btns reset-board">Reset Board</button>
             <button type="button" class="btns reset-game">Reset Game</button>
         </div>
@@ -33,18 +33,18 @@
     <dialog class="dialog">
         <form action="" class="dialog__form" method="dialog">
             <p>
-                <label for="player-1" class="form__label">Player name 1:</label>
-                <input type="text" id="player-1" class="form__input" maxlength="100" value="Player 1">
+                <label for="player-1" class="form__label">Player 1</label>
+                <input type="text" id="player-1" class="form__input" maxlength="100" placeholder="John Doe..." required>
             </p>
             <p>
-                <label for="player-2" class="form__label">Player name 2:</label>
-                <input type="text" id="player-2" class="form__input" maxlength="100" value="Player 2">
+                <label for="player-2" class="form__label">Player 2</label>
+                <input type="text" id="player-2" class="form__input" maxlength="100" placeholder="John Doe..." required>
             </p>
             <button type="submit" class="form__button btns">Save and Close</button>
         </form>
     </dialog>
 
-    <p class="winner"><b></b></p>
+    <p class="winner"><b>haz ganado</b></p>
 
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 </body>
